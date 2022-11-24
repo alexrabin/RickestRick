@@ -71,7 +71,19 @@ export default function Home() {
         <OutsideLink href="https://rickandmortyapi.com/">
           Rick & Morty API
         </OutsideLink>
+        . View the code for this site{" "}
+        <OutsideLink href="https://github.com/alexrabin/RickestRick">
+          here
+        </OutsideLink>
         .
+      </Typography>
+      <Typography
+        variant="subtitle2"
+        component="p"
+        sx={{ margin: 3, textAlign: "center" }}
+      >
+        Put together by{" "}
+        <OutsideLink href="https://alexrabin.com">Alex Rabin</OutsideLink>.
       </Typography>
     </MainLayout>
   );

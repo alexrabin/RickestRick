@@ -65,7 +65,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!page || typeof page !== "string") {
     throw Error("No Page Found");
   }
-  const locationsPageData = await getAllLocations();
+  const locationsPageData = await getAllLocations(parseInt(page));
   return {
     props: {
       locations: locationsPageData.results,

@@ -67,6 +67,14 @@ export default function Home() {
       >
         This site is powered by{" "}
         <OutsideLink href="https://nextjs.org/">Next.js</OutsideLink>,{" "}
+        <OutsideLink href="https://axios-http.com/docs/intro">
+          Axios
+        </OutsideLink>
+        ,{" "}
+        <OutsideLink href="https://www.npmjs.com/package/nextjs-progressbar">
+          nextjs-progressbar
+        </OutsideLink>
+        , <OutsideLink href="https://favicon.io">favicon.io</OutsideLink>,{" "}
         <OutsideLink href="https://mui.com/">MUI</OutsideLink>, and the{" "}
         <OutsideLink href="https://rickandmortyapi.com/">
           Rick & Morty API

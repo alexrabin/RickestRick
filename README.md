@@ -1,5 +1,10 @@
-# RickestRick
+# Rickest Rick
+This project uses [Next.js](https://nextjs.org/) and [The Rick & Morty API](https://rickandmortyapi.com/).
 
-https://mui.com/material-ui/getting-started/overview/
+Happy Paws also uses:
+* [MUI](https://mui.com/)
+* [Axios](https://axios-http.com/docs/intro)
+* [nextjs-progressbar](https://www.npmjs.com/package/nextjs-progressbar)
+* [favicon.io](https://favicon.io)
 
-https://rickandmortyapi.com
+ Created by [Alex Rabin](https://alexrabin.com)

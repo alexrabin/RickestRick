@@ -28,8 +28,8 @@ const MainLayout: React.FC<Props> = ({
       <Head>
         <title>
           {documentTitle && documentTitle.length > 0
-            ? `${documentTitle} - Rick-est Rick`
-            : "Rick-est Rick"}
+            ? `${documentTitle} - Rickest Rick`
+            : "Rickest Rick"}
         </title>
         <meta name="description" content={description} />
         <meta name="viewport" content="initial-scale=1, width=device-width" />

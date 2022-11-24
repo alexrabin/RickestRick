@@ -44,7 +44,7 @@ const EpisodeItem = ({ episode }: { episode: Episode }) => {
             <DialogContentText>Air Date: {episode.air_date}</DialogContentText>
             <DialogContentText>
               Characters ({episode.characters.length}):
-              <Grid container>
+              <Grid container justifyContent={"center"}>
                 {episode.characters.map((c, i) => {
                   return (
                     <Grid item key={i} sx={{ margin: 1 }}>

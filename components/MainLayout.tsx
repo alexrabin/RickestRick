@@ -1,6 +1,6 @@
+import styled from "@emotion/styled";
 import CssBaseline from "@mui/material/CssBaseline";
 import Head from "next/head";
-import styled from "styled-components";
 import NavigationBar from "./NavigationBar";
 
 const LayoutContainer = styled.div`

@@ -25,7 +25,7 @@ const CharacterItem = ({
   character?: Character;
   url?: string;
   height?: number;
-  textVariant:
+  textVariant?:
     | "button"
     | "caption"
     | "h1"

@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import MainLayout from "../components/MainLayout";
 import Link from "next/link";
+import OutsideLink from "../components/OutsideLink";
 
 const cardStyles = {
   margin: 2,
@@ -15,12 +16,17 @@ export default function Home() {
   return (
     <MainLayout>
       <Typography variant="h3" component="div">
-        The Rick-est Rick
+        The Rickest Rick
       </Typography>
-      <Typography variant="subtitle1" component="p" sx={{ margin: 3 }}>
+      <Typography
+        variant="subtitle1"
+        component="p"
+        sx={{ margin: 3, textAlign: "center" }}
+      >
         View Characters, Episodes, and Locations from the Rick and Morty TV
         show.
       </Typography>
+
       <Card sx={cardStyles}>
         <CardActionArea>
           <Link href={"/characters"}>
@@ -54,6 +60,19 @@ export default function Home() {
           </Link>
         </CardActionArea>
       </Card>
+      <Typography
+        variant="subtitle2"
+        component="p"
+        sx={{ margin: 3, textAlign: "center" }}
+      >
+        This site is powered by{" "}
+        <OutsideLink href="https://nextjs.org/">Next.js</OutsideLink>,{" "}
+        <OutsideLink href="https://mui.com/">MUI</OutsideLink>, and the{" "}
+        <OutsideLink href="https://rickandmortyapi.com/">
+          Rick & Morty API
+        </OutsideLink>
+        .
+      </Typography>
     </MainLayout>
   );
 }

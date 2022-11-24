@@ -23,7 +23,7 @@ const LocationPage = ({ location }: { location: Location }) => {
         {location.residents.map((c, i) => {
           return (
             <Grid item key={i} sx={{ margin: 1 }}>
-              <CharacterItem url={c} height={70} textVariant={"body1"} />
+              <CharacterItem url={c} textVariant={"body1"} />
             </Grid>
           );
         })}

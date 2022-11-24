@@ -4,7 +4,17 @@ const nextConfig = {
   swcMinify: true,
   compiler: {
     styledComponents: true
-  }
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'rickandmortyapi.com',
+        pathname: '/api/**',
+      },
+    ],
+  },
+
 }
 
 module.exports = nextConfig

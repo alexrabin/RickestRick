@@ -1,3 +1,4 @@
+import CssBaseline from "@mui/material/CssBaseline";
 import Head from "next/head";
 import styled from "styled-components";
 import NavigationBar from "./NavigationBar";
@@ -35,6 +36,7 @@ const MainLayout: React.FC<Props> = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NavigationBar />
+      <CssBaseline />
       <LayoutContainer>{children}</LayoutContainer>
     </div>
   );

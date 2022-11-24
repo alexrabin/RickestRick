@@ -1,4 +1,3 @@
-import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { GetStaticProps } from "next";
@@ -6,7 +5,9 @@ import React from "react";
 import MainLayout from "../../components/MainLayout";
 import Character from "../../models/Characters";
 import { getAllCharacters } from "../../services/apiService";
-import CardContent from "@mui/material/CardContent";
+import CharacterItem from "../../components/CharacterItem";
+import Pagination from "@mui/material/Pagination";
+import { useRouter } from "next/router";
 
 interface Props {
   characters: Character[];
@@ -15,26 +16,32 @@ interface Props {
 }
 
 const CharactersPage = ({ characters, page, totalPages }: Props) => {
+  const router = useRouter();
+  const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    router.push(`/characters/${value}`);
+  };
+
   return (
     <MainLayout documentTitle="Characters">
-      <Typography variant="h3" component="div">
+      <Typography variant="h4" component="div">
         Characters
       </Typography>
-      <Grid container>
+      <Grid container justifyContent={"center"}>
         {characters.map((c, i) => {
           return (
             <Grid item key={i} sx={{ margin: 1 }}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h5" component="p">
-                    {c.name}
-                  </Typography>
-                </CardContent>
-              </Card>
+              <CharacterItem character={c} />
             </Grid>
           );
         })}
       </Grid>
+      <Pagination
+        count={totalPages}
+        shape="rounded"
+        page={page}
+        onChange={handleChange}
+        sx={{ marginTop: 5 }}
+      />
     </MainLayout>
   );
 };
@@ -62,7 +69,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       characters: characterPageData.results,
-      page,
+      page: parseInt(page),
       totalPages: characterPageData.info.pages,
     },
   };

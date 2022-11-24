@@ -7,12 +7,21 @@ interface Character {
   species: string;
   type: string;
   gender: string;
-  origin: any;
-  location: any;
+  origin: CharacterOrigin;
+  location: CharacterLocation;
   image: string; //url
   episode: string[]; // array of urls
   url: string;
   created: string;
 }
 
+interface CharacterLocation {
+  name: string;
+  url: string;
+}
+
+interface CharacterOrigin {
+  name: string;
+  url: string;
+}
 export default Character;

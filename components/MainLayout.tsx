@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styled from "styled-components";
+import NavigationBar from "./NavigationBar";
 
 const LayoutContainer = styled.div`
   min-height: 100vh;
@@ -33,6 +34,7 @@ const MainLayout: React.FC<Props> = ({
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <NavigationBar />
       <LayoutContainer>{children}</LayoutContainer>
     </div>
   );

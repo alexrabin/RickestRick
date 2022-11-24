@@ -24,9 +24,9 @@ const NavigationBar = () => {
     setAnchorElNav(null);
   };
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: "#121212" }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters sx={{ backgroundColor: "#121212" }}>
           <Grid container justifyContent={"space-between"} alignItems="center">
             <Grid item>
               <Typography
@@ -61,8 +61,8 @@ const NavigationBar = () => {
                 ))}
               </Box>
             </Grid>
-            <Grid item>
-              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <Grid item sx={{ display: { xs: "flex", md: "none" } }}>
+              <Box sx={{ flexGrow: 1 }}>
                 <IconButton
                   size="large"
                   aria-label="account of current user"

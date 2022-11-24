@@ -21,7 +21,7 @@ type Props = {
 const MainLayout: React.FC<Props> = ({
   documentTitle = null,
   children,
-  description = "Are you the Rick-est Rick?",
+  description = "Are you the Rickest Rick?",
 }) => {
   return (
     <div>

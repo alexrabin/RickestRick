@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Character from "../models/Characters";
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
@@ -13,8 +13,49 @@ import format from "date-fns/format";
 import Grid from "@mui/material/Grid";
 import Link from "next/link";
 import Image from "next/image";
+import { Skeleton } from "@mui/material";
+import { getCharacter } from "../services/apiService";
 
-const CharacterItem = ({ character }: { character: Character }) => {
+const CharacterItem = ({
+  character,
+  url,
+  height = 150,
+  textVariant = "h5",
+}: {
+  character?: Character;
+  url?: string;
+  height?: number;
+  textVariant:
+    | "button"
+    | "caption"
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "subtitle1"
+    | "subtitle2"
+    | "body1"
+    | "body2"
+    | "overline"
+    | "inherit"
+    | undefined;
+}) => {
+  const [characterData, setCharacterData] = useState<Character>();
+
+  useEffect(() => {
+    if (character) {
+      setCharacterData(character);
+    } else if (url) {
+      const id = url
+        .replace("https://rickandmortyapi.com/api/", "")
+        .split("/")[1];
+      getCharacter(id).then((value) => {
+        setCharacterData(value);
+      });
+    }
+  }, [character, url]);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -24,20 +65,32 @@ const CharacterItem = ({ character }: { character: Character }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(character);
+  if (!characterData) {
+    return (
+      <Card>
+        <Skeleton
+          variant="rectangular"
+          width={210}
+          height={60}
+          animation="wave"
+        />
+        <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+      </Card>
+    );
+  }
   return (
     <>
       <Card>
         <CardActionArea onClick={handleClickOpen}>
           <CardMedia
             component={"img"}
-            alt={character.name}
-            src={character.image}
-            height="150"
+            alt={characterData.name}
+            src={characterData.image}
+            height={height}
           />
           <CardContent>
-            <Typography variant="h5" component="p">
-              {character.name}
+            <Typography variant={textVariant} component="p">
+              {characterData.name}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -48,7 +101,9 @@ const CharacterItem = ({ character }: { character: Character }) => {
           aria-describedby="alert-dialog-description"
           fullWidth
         >
-          <DialogTitle id="alert-dialog-title">{character.name}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">
+            {characterData.name}
+          </DialogTitle>
           <DialogContent>
             <Grid
               container
@@ -58,50 +113,53 @@ const CharacterItem = ({ character }: { character: Character }) => {
             >
               <Grid item xs="auto">
                 <Image
-                  src={character.image}
-                  alt={character.name}
+                  src={characterData.image}
+                  alt={characterData.name}
                   height={200}
                   width={200}
                 />
               </Grid>
               <Grid item>
                 <DialogContentText>
-                  Species: {character.species}
+                  Species: {characterData.species}
                 </DialogContentText>
                 <DialogContentText>
-                  Gender: {character.gender}
+                  Gender: {characterData.gender}
                 </DialogContentText>
                 <DialogContentText>
-                  Status: {character.status}
+                  Status: {characterData.status}
                 </DialogContentText>
-                {character.type.length > 0 && (
-                  <DialogContentText>Type: {character.type}</DialogContentText>
+                {characterData?.type?.length > 0 && (
+                  <DialogContentText>
+                    Type: {characterData.type}
+                  </DialogContentText>
                 )}
                 <DialogContentText>
-                  Created: {format(new Date(character.created), "MMMM d, yyyy")}
+                  Created:{" "}
+                  {format(new Date(characterData.created), "MMMM d, yyyy")}
                 </DialogContentText>
                 <DialogContentText>
-                  Origin: {character.origin.name}
+                  Origin: {characterData.origin.name}
                 </DialogContentText>
-                {character.location.url.length > 0 && (
+                {characterData.location.url.length > 0 && (
                   <DialogContentText>
                     Location:{" "}
                     <Link
                       style={{ color: "#0099FA" }}
                       href={
                         "/location/" +
-                        character.location.url
+                        characterData.location.url
                           .replace("https://rickandmortyapi.com/api/", "")
                           .split("/")[1]
                       }
                     >
-                      {character.location.name}
+                      {characterData.location.name}
                     </Link>
                   </DialogContentText>
                 )}
                 <DialogContentText>Episode(s):</DialogContentText>
                 <Grid container>
-                  {character.episode.map((e, i) => {
+                  {characterData.episode.map((e, i) => {
                     const episodeNumber = e
                       .replace("https://rickandmortyapi.com/api/", "")
                       .split("/")[1];

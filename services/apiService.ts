@@ -20,7 +20,7 @@ export const getAllCharacters = async (page = 1) => {
 
 export const getCharacter = async (id: string) => {
   try {
-    const res = await RickMortyAPI.get(`character/?${id}`);
+    const res = await RickMortyAPI.get(`character/${id}`);
     return res.data;
   } catch (e) {
     console.log(e);
@@ -47,9 +47,9 @@ export const getLocation = async (id: string) => {
   }
 };
 
-export const getAllEpisodes = async () => {
+export const getAllEpisodes = async (page = 1) => {
   try {
-    const res = await RickMortyAPI.get(`episode`);
+    const res = await RickMortyAPI.get(`episode/?page=${page}`);
     return res.data;
   } catch (e) {
     console.log(e);

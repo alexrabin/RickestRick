@@ -24,7 +24,7 @@ const NavigationBar = () => {
     setAnchorElNav(null);
   };
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#121212" }}>
+    <AppBar position="sticky" sx={{ backgroundColor: "#121212" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ backgroundColor: "#121212" }}>
           <Grid container justifyContent={"space-between"} alignItems="center">

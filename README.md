@@ -1,7 +1,7 @@
 # Rickest Rick
 This project uses [Next.js](https://nextjs.org/) and [The Rick & Morty API](https://rickandmortyapi.com/).
 
-Happy Paws also uses:
+Rickest Rick also uses:
 * [MUI](https://mui.com/)
 * [Axios](https://axios-http.com/docs/intro)
 * [nextjs-progressbar](https://www.npmjs.com/package/nextjs-progressbar)

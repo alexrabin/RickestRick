@@ -1,13 +1,25 @@
+import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import React from "react";
 import CharacterItem from "../../components/CharacterItem";
 import MainLayout from "../../components/MainLayout";
 import Episode from "../../models/Episode";
-import { getEpisode } from "../../services/apiService";
+import { getAllEpisodes, getEpisode } from "../../services/apiService";
 
-const EpisodePage = ({ episode }: { episode: Episode }) => {
+const EpisodePage = ({
+  episode,
+  totalEpisodes,
+}: {
+  episode: Episode;
+  totalEpisodes: number;
+}) => {
+  const router = useRouter();
+  const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    router.push(`/episode/${value}`);
+  };
   return (
     <MainLayout documentTitle={episode.episode}>
       <Typography variant={"h5"} component="p">
@@ -16,7 +28,7 @@ const EpisodePage = ({ episode }: { episode: Episode }) => {
       <Typography variant={"body1"} component="p">
         Air Date: {episode.air_date}
       </Typography>
-      <Typography variant={"body1"} component="p">
+      <Typography variant={"h6"} component="p">
         Characters ({episode.characters.length}):
       </Typography>
       <Grid container justifyContent={"center"}>
@@ -28,6 +40,13 @@ const EpisodePage = ({ episode }: { episode: Episode }) => {
           );
         })}
       </Grid>
+      <Pagination
+        count={totalEpisodes}
+        shape="rounded"
+        page={episode.id}
+        onChange={handleChange}
+        sx={{ marginTop: 5 }}
+      />
     </MainLayout>
   );
 };
@@ -38,9 +57,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { episode } = context.params ?? {};
   if (episode && typeof episode === "string") {
     const episodeData = await getEpisode(episode);
+    const allEpisodeData = await getAllEpisodes();
     return {
       props: {
         episode: episodeData,
+        totalEpisodes: allEpisodeData.info.count,
       },
     };
   }

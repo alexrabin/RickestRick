@@ -13,7 +13,6 @@ const RickMortyAPI = axios.create({
 async function fetchWithCache(url: string) {
   const value = cacheData.get(url);
   if (value) {
-    console.log("using cache", url);
     return { data: value };
   } else {
     const hours = 24;

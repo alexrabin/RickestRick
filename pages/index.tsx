@@ -15,11 +15,11 @@ const cardStyles = {
 export default function Home() {
   return (
     <MainLayout>
-      <Typography variant="h3" component="div">
+      <Typography variant="h3" component="div" sx={{ textAlign: "center" }}>
         The Rickest Rick
       </Typography>
       <Typography
-        variant="subtitle1"
+        variant="body1"
         component="p"
         sx={{ margin: 3, textAlign: "center" }}
       >
@@ -61,7 +61,7 @@ export default function Home() {
         </CardActionArea>
       </Card>
       <Typography
-        variant="subtitle2"
+        variant="body1"
         component="p"
         sx={{ margin: 3, textAlign: "center" }}
       >
@@ -86,7 +86,7 @@ export default function Home() {
         .
       </Typography>
       <Typography
-        variant="subtitle2"
+        variant="body2"
         component="p"
         sx={{ margin: 3, textAlign: "center" }}
       >

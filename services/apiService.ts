@@ -1,13 +1,14 @@
 import axios from "axios";
+import { setupCache } from "axios-cache-interceptor";
 
 const baseUrl = "https://rickandmortyapi.com/api/";
-const RickMortyAPI = axios.create({
+const RickMortyAPI = setupCache(axios.create({
   baseURL: baseUrl,
   responseType: "json",
   headers: {
     "accept-encoding": "*",
   },
-});
+}));
 
 export const getAllCharacters = async (page = 1) => {
   try {

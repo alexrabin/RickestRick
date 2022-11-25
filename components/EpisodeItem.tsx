@@ -10,6 +10,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Episode from "../models/Episode";
 import Grid from "@mui/material/Grid";
 import CharacterItem from "./CharacterItem";
+import IconButton from "@mui/material/IconButton";
+import Close from "@mui/icons-material/Close";
 const EpisodeItem = ({ episode }: { episode: Episode }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -38,7 +40,20 @@ const EpisodeItem = ({ episode }: { episode: Episode }) => {
           fullWidth
         >
           <DialogTitle id="alert-dialog-title">
-            {episode.name}: {episode.episode}
+            <Grid
+              container
+              justifyContent={"space-between"}
+              alignItems="center"
+            >
+              <Grid item>
+                {episode.name}: {episode.episode}
+              </Grid>
+              <Grid item>
+                <IconButton onClick={handleClose}>
+                  <Close />
+                </IconButton>
+              </Grid>
+            </Grid>
           </DialogTitle>
           <DialogContent>
             <DialogContentText>Air Date: {episode.air_date}</DialogContentText>

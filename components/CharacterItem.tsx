@@ -12,8 +12,10 @@ import DialogTitle from "@mui/material/DialogTitle";
 import format from "date-fns/format";
 import Grid from "@mui/material/Grid";
 import Link from "next/link";
-import { Skeleton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Skeleton from "@mui/material/Skeleton";
 import { getCharacter } from "../services/apiService";
+import Close from "@mui/icons-material/Close";
 
 const CharacterItem = ({
   character,
@@ -105,7 +107,18 @@ const CharacterItem = ({
           fullWidth
         >
           <DialogTitle id="alert-dialog-title">
-            {characterData.name}
+            <Grid
+              container
+              justifyContent={"space-between"}
+              alignItems="center"
+            >
+              <Grid item>{characterData.name}</Grid>
+              <Grid item>
+                <IconButton onClick={handleClose}>
+                  <Close />
+                </IconButton>
+              </Grid>
+            </Grid>
           </DialogTitle>
           <DialogContent>
             <Grid
@@ -161,7 +174,7 @@ const CharacterItem = ({
                   </DialogContentText>
                 )}
                 <DialogContentText>Episode(s):</DialogContentText>
-                <Grid container>
+                <Grid container justifyContent={"center"}>
                   {characterData.episode.map((e, i) => {
                     const episodeNumber = e
                       .replace("https://rickandmortyapi.com/api/", "")

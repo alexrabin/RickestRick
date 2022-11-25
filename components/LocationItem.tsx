@@ -10,6 +10,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import CharacterItem from "./CharacterItem";
 import Location from "../models/Location";
+import IconButton from "@mui/material/IconButton";
+import Close from "@mui/icons-material/Close";
+
 const LocationItem = ({ location }: { location: Location }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -37,7 +40,20 @@ const LocationItem = ({ location }: { location: Location }) => {
           aria-describedby="alert-dialog-description"
           fullWidth
         >
-          <DialogTitle id="alert-dialog-title">{location.name}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">
+            <Grid
+              container
+              justifyContent={"space-between"}
+              alignItems="center"
+            >
+              <Grid item>{location.name}</Grid>
+              <Grid item>
+                <IconButton onClick={handleClose}>
+                  <Close />
+                </IconButton>
+              </Grid>
+            </Grid>
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>Type: {location.type}</DialogContentText>
             <DialogContentText>

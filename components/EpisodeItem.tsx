@@ -26,7 +26,7 @@ const EpisodeItem = ({ episode }: { episode: Episode }) => {
         <CardActionArea onClick={handleClickOpen}>
           <CardContent>
             <Typography variant="h5" component="p">
-              {episode.name}: {episode.episode}
+              {episode.episode}: {episode.name}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -38,7 +38,7 @@ const EpisodeItem = ({ episode }: { episode: Episode }) => {
           fullWidth
         >
           <DialogTitleItem
-            title={`${episode.name}: ${episode.episode}`}
+            title={`${episode.episode}: ${episode.name}`}
             handleClose={handleClose}
           />
           <DialogContent>

@@ -1,13 +1,25 @@
 import Grid from "@mui/material/Grid";
+import Pagination from "@mui/material/Pagination";
 import Typography from "@mui/material/Typography";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import React from "react";
 import CharacterItem from "../../components/CharacterItem";
 import MainLayout from "../../components/MainLayout";
 import Location from "../../models/Location";
-import { getLocation } from "../../services/apiService";
+import { getAllLocations, getLocation } from "../../services/apiService";
 
-const LocationPage = ({ location }: { location: Location }) => {
+const LocationPage = ({
+  location,
+  totalLocations,
+}: {
+  location: Location;
+  totalLocations: number;
+}) => {
+  const router = useRouter();
+  const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    router.push(`/location/${value}`);
+  };
   return (
     <MainLayout documentTitle={location.name}>
       <Typography variant={"h5"} component="p" textAlign={"center"}>
@@ -31,6 +43,13 @@ const LocationPage = ({ location }: { location: Location }) => {
           );
         })}
       </Grid>
+      <Pagination
+        count={totalLocations}
+        shape="rounded"
+        page={location.id}
+        onChange={handleChange}
+        sx={{ marginTop: 5 }}
+      />
     </MainLayout>
   );
 };
@@ -41,9 +60,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { location } = context.params ?? {};
   if (location && typeof location === "string") {
     const locationData = await getLocation(location);
+    const allLocationsData = await getAllLocations();
+
     return {
       props: {
         location: locationData,
+        totalLocations: allLocationsData.info.count,
       },
     };
   }

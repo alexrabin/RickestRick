@@ -165,7 +165,10 @@ const CharacterItem = ({
                       .split("/")[1];
                     return (
                       <Grid item key={i} sx={{ margin: 1 }}>
-                        <Link href={`/episode/${episodeNumber}`}>
+                        <Link
+                          href={`/episode/${episodeNumber}`}
+                          onClick={handleClose}
+                        >
                           <Card>
                             <CardActionArea>
                               <CardContent>

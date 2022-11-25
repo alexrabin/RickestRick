@@ -6,12 +6,10 @@ import CardActionArea from "@mui/material/CardActionArea";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Grid from "@mui/material/Grid";
 import CharacterItem from "./CharacterItem";
 import Location from "../models/Location";
-import IconButton from "@mui/material/IconButton";
-import Close from "@mui/icons-material/Close";
+import DialogTitleItem from "./DialogTitleItem";
 
 const LocationItem = ({ location }: { location: Location }) => {
   const [open, setOpen] = React.useState(false);
@@ -40,20 +38,7 @@ const LocationItem = ({ location }: { location: Location }) => {
           aria-describedby="alert-dialog-description"
           fullWidth
         >
-          <DialogTitle id="alert-dialog-title">
-            <Grid
-              container
-              justifyContent={"space-between"}
-              alignItems="center"
-            >
-              <Grid item>{location.name}</Grid>
-              <Grid item>
-                <IconButton onClick={handleClose}>
-                  <Close />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </DialogTitle>
+          <DialogTitleItem title={location.name} handleClose={handleClose} />
           <DialogContent>
             <DialogContentText>Type: {location.type}</DialogContentText>
             <DialogContentText>

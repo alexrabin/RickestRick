@@ -22,7 +22,7 @@ const EpisodePage = ({
   };
   return (
     <MainLayout documentTitle={episode.episode}>
-      <Typography variant={"h5"} component="p">
+      <Typography variant={"h5"} component="p" textAlign={"center"}>
         {episode.name}: {episode.episode}
       </Typography>
       <Typography variant={"body1"} component="p">

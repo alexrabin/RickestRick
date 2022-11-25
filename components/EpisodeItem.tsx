@@ -6,12 +6,10 @@ import CardActionArea from "@mui/material/CardActionArea";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import Episode from "../models/Episode";
 import Grid from "@mui/material/Grid";
 import CharacterItem from "./CharacterItem";
-import IconButton from "@mui/material/IconButton";
-import Close from "@mui/icons-material/Close";
+import DialogTitleItem from "./DialogTitleItem";
 const EpisodeItem = ({ episode }: { episode: Episode }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -39,22 +37,10 @@ const EpisodeItem = ({ episode }: { episode: Episode }) => {
           aria-describedby="alert-dialog-description"
           fullWidth
         >
-          <DialogTitle id="alert-dialog-title">
-            <Grid
-              container
-              justifyContent={"space-between"}
-              alignItems="center"
-            >
-              <Grid item>
-                {episode.name}: {episode.episode}
-              </Grid>
-              <Grid item>
-                <IconButton onClick={handleClose}>
-                  <Close />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </DialogTitle>
+          <DialogTitleItem
+            title={`${episode.name}: ${episode.episode}`}
+            handleClose={handleClose}
+          />
           <DialogContent>
             <DialogContentText>Air Date: {episode.air_date}</DialogContentText>
             <DialogContentText>

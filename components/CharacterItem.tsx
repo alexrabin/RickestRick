@@ -8,14 +8,12 @@ import CardActionArea from "@mui/material/CardActionArea";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import format from "date-fns/format";
 import Grid from "@mui/material/Grid";
 import Link from "next/link";
-import IconButton from "@mui/material/IconButton";
 import Skeleton from "@mui/material/Skeleton";
 import { getCharacter } from "../services/apiService";
-import Close from "@mui/icons-material/Close";
+import DialogTitleItem from "./DialogTitleItem";
 
 const CharacterItem = ({
   character,
@@ -106,20 +104,10 @@ const CharacterItem = ({
           aria-describedby="alert-dialog-description"
           fullWidth
         >
-          <DialogTitle id="alert-dialog-title">
-            <Grid
-              container
-              justifyContent={"space-between"}
-              alignItems="center"
-            >
-              <Grid item>{characterData.name}</Grid>
-              <Grid item>
-                <IconButton onClick={handleClose}>
-                  <Close />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </DialogTitle>
+          <DialogTitleItem
+            title={characterData.name}
+            handleClose={handleClose}
+          />
           <DialogContent>
             <Grid
               container

@@ -11,7 +11,9 @@ const NotFoundPage = () => {
   }, [router]);
   return (
     <MainLayout documentTitle="Not Found">
-      <Typography variant="h5">Oh no, there&apos;s nothing here!</Typography>
+      <Typography variant="h5" textAlign={"center"}>
+        Oh no, there&apos;s nothing here!
+      </Typography>
       <Button onClick={goHome}>Head Back Home</Button>
     </MainLayout>
   );

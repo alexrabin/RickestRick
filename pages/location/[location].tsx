@@ -10,13 +10,16 @@ import { getLocation } from "../../services/apiService";
 const LocationPage = ({ location }: { location: Location }) => {
   return (
     <MainLayout documentTitle={location.name}>
-      <Typography variant={"h5"} component="p">
+      <Typography variant={"h5"} component="p" textAlign={"center"}>
+        Location: {location.name}
+      </Typography>
+      <Typography variant={"body1"} component="p">
         Type: {location.type}
       </Typography>
       <Typography variant={"body1"} component="p">
-        Dimension: {location.dimension}
+        {location.dimension}
       </Typography>
-      <Typography variant={"body1"} component="p">
+      <Typography variant={"h6"} component="p">
         Residents ({location.residents.length}):
       </Typography>
       <Grid container justifyContent={"center"}>

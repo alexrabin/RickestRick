@@ -12,7 +12,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import format from "date-fns/format";
 import Grid from "@mui/material/Grid";
 import Link from "next/link";
-import Image from "next/image";
 import { Skeleton } from "@mui/material";
 import { getCharacter } from "../services/apiService";
 
@@ -89,7 +88,11 @@ const CharacterItem = ({
             height={height}
           />
           <CardContent>
-            <Typography variant={textVariant} component="p">
+            <Typography
+              variant={textVariant}
+              component="p"
+              textAlign={"center"}
+            >
               {characterData.name}
             </Typography>
           </CardContent>
@@ -112,7 +115,7 @@ const CharacterItem = ({
               alignItems={"center"}
             >
               <Grid item xs="auto">
-                <Image
+                <img
                   src={characterData.image}
                   alt={characterData.name}
                   height={200}

@@ -6,7 +6,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <NextNProgress />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   );
 }

@@ -8,7 +8,8 @@ import { getAllCharacters } from "../../services/apiService";
 import CharacterItem from "../../components/CharacterItem";
 import Pagination from "@mui/material/Pagination";
 import { useRouter } from "next/router";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 interface Props {
   characters: Character[];
   page: number;
@@ -20,7 +21,8 @@ const CharactersPage = ({ characters, page, totalPages }: Props) => {
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     router.push(`/characters/${value}`);
   };
-
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <MainLayout documentTitle="Characters">
       <Typography variant="h4" component="div">
@@ -36,11 +38,13 @@ const CharactersPage = ({ characters, page, totalPages }: Props) => {
         })}
       </Grid>
       <Pagination
+        size={isSmall ? "small" : "large"}
         count={totalPages}
         shape="rounded"
         page={page}
         onChange={handleChange}
         sx={{ marginTop: 5 }}
+        boundaryCount={3}
       />
     </MainLayout>
   );

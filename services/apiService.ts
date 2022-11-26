@@ -15,10 +15,17 @@ async function fetchWithCache(url: string) {
   if (value) {
     return { data: value };
   } else {
-    const res = await RickMortyAPI.get(url);
-    const data = res.data;
-    cacheData.put(url, data);
-    return { data };
+    try {
+      const res = await RickMortyAPI.get(url);
+      const data = res.data;
+      // only cache valid data
+      if (data) {
+        cacheData.put(url, data);
+      }
+      return { data };
+    } catch (e) {
+      return { data: null };
+    }
   }
 }
 

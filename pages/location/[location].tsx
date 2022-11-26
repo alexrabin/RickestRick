@@ -59,6 +59,10 @@ export default LocationPage;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { location } = context.params ?? {};
   if (location && typeof location === "string") {
+    context.res.setHeader(
+      "Cache-Control",
+      "public, s-maxage=30, stale-while-revalidate=59"
+    );
     const locationData = await getLocation(location);
     const allLocationsData = await getAllLocations();
 

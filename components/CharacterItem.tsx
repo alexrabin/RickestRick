@@ -14,6 +14,8 @@ import Link from "next/link";
 import Skeleton from "@mui/material/Skeleton";
 import { getCharacter } from "../services/apiService";
 import DialogTitleItem from "./DialogTitleItem";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 const CharacterItem = ({
   character,
@@ -42,7 +44,8 @@ const CharacterItem = ({
     | undefined;
 }) => {
   const [characterData, setCharacterData] = useState<Character>();
-
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   useEffect(() => {
     if (character) {
       setCharacterData(character);
@@ -103,6 +106,7 @@ const CharacterItem = ({
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           fullWidth
+          fullScreen={fullScreen}
         >
           <DialogTitleItem
             title={characterData.name}
@@ -147,7 +151,7 @@ const CharacterItem = ({
                 </DialogContentText>
                 {characterData.location.url.length > 0 && (
                   <DialogContentText>
-                    Location:{" "}
+                    Last Location:{" "}
                     <Link
                       style={{ color: "#0099FA" }}
                       href={
@@ -177,7 +181,13 @@ const CharacterItem = ({
                           <Card>
                             <CardActionArea>
                               <CardContent>
-                                <p>{episodeNumber}</p>
+                                <Typography
+                                  variant={"body1"}
+                                  component="p"
+                                  textAlign={"center"}
+                                >
+                                  {episodeNumber}
+                                </Typography>
                               </CardContent>
                             </CardActionArea>
                           </Card>

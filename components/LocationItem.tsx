@@ -10,10 +10,12 @@ import Grid from "@mui/material/Grid";
 import CharacterItem from "./CharacterItem";
 import Location from "../models/Location";
 import DialogTitleItem from "./DialogTitleItem";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 const LocationItem = ({ location }: { location: Location }) => {
   const [open, setOpen] = React.useState(false);
-
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -37,6 +39,7 @@ const LocationItem = ({ location }: { location: Location }) => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           fullWidth
+          fullScreen={fullScreen}
         >
           <DialogTitleItem title={location.name} handleClose={handleClose} />
           <DialogContent>
@@ -45,7 +48,7 @@ const LocationItem = ({ location }: { location: Location }) => {
               Dimension: {location.dimension}
             </DialogContentText>
             <DialogContentText>
-              Residents ({location.residents.length}):
+              {location.residents.length} Resident(s):
               <Grid container justifyContent={"center"}>
                 {location.residents.map((c, i) => {
                   return (

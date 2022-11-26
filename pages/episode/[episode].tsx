@@ -29,7 +29,7 @@ const EpisodePage = ({
         Air Date: {episode.air_date}
       </Typography>
       <Typography variant={"h6"} component="p">
-        Characters ({episode.characters.length}):
+        {episode.characters.length} Character(s):
       </Typography>
       <Grid container justifyContent={"center"}>
         {episode.characters.map((c, i) => {
@@ -56,6 +56,10 @@ export default EpisodePage;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { episode } = context.params ?? {};
   if (episode && typeof episode === "string") {
+    context.res.setHeader(
+      "Cache-Control",
+      "public, s-maxage=30, stale-while-revalidate=59"
+    );
     const episodeData = await getEpisode(episode);
     const allEpisodeData = await getAllEpisodes();
     return {

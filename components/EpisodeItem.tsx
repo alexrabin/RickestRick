@@ -10,6 +10,8 @@ import Episode from "../models/Episode";
 import Grid from "@mui/material/Grid";
 import CharacterItem from "./CharacterItem";
 import DialogTitleItem from "./DialogTitleItem";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 const EpisodeItem = ({ episode }: { episode: Episode }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -20,6 +22,8 @@ const EpisodeItem = ({ episode }: { episode: Episode }) => {
   const handleClose = () => {
     setOpen(false);
   };
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <>
       <Card>
@@ -36,6 +40,7 @@ const EpisodeItem = ({ episode }: { episode: Episode }) => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           fullWidth
+          fullScreen={fullScreen}
         >
           <DialogTitleItem
             title={`${episode.episode}: ${episode.name}`}
@@ -44,7 +49,7 @@ const EpisodeItem = ({ episode }: { episode: Episode }) => {
           <DialogContent>
             <DialogContentText>Air Date: {episode.air_date}</DialogContentText>
             <DialogContentText>
-              Characters ({episode.characters.length}):
+              ({episode.characters.length}) Character(s):
               <Grid container justifyContent={"center"}>
                 {episode.characters.map((c, i) => {
                   return (

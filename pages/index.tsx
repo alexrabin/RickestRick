@@ -32,7 +32,11 @@ export default function Home() {
           nextjs-progressbar
         </OutsideLink>
         , <OutsideLink href="https://favicon.io">favicon.io</OutsideLink>,{" "}
-        <OutsideLink href="https://mui.com/">MUI</OutsideLink>, and the{" "}
+        <OutsideLink href="https://mui.com/">MUI</OutsideLink>,{" "}
+        <OutsideLink href="https://www.npmjs.com/package/memory-cache">
+          memory-cache
+        </OutsideLink>
+        ,and the{" "}
         <OutsideLink href="https://rickandmortyapi.com/">
           Rick & Morty API
         </OutsideLink>

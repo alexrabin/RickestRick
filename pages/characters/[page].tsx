@@ -1,4 +1,3 @@
-import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { GetStaticProps } from "next";
 import React from "react";
@@ -10,6 +9,7 @@ import Pagination from "@mui/material/Pagination";
 import { useRouter } from "next/router";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import StickyHeader from "../../components/StickyHeader";
 interface Props {
   characters: Character[];
   page: number;
@@ -25,9 +25,7 @@ const CharactersPage = ({ characters, page, totalPages }: Props) => {
   const isSmall = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <MainLayout documentTitle="Characters">
-      <Typography variant="h4" component="div">
-        Characters
-      </Typography>
+      <StickyHeader title="Characters" />
       <Grid container justifyContent={"center"}>
         {characters.map((c, i) => {
           return (

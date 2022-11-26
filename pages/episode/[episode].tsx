@@ -10,6 +10,7 @@ import Episode from "../../models/Episode";
 import { getAllEpisodes, getEpisode } from "../../services/apiService";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import StickyHeader from "../../components/StickyHeader";
 const EpisodePage = ({
   episode,
   totalEpisodes,
@@ -25,26 +26,11 @@ const EpisodePage = ({
   const isSmall = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <MainLayout documentTitle={episode.episode}>
-      <Typography
-        variant={"h5"}
-        component="p"
-        textAlign={"center"}
-        sx={{
-          backgroundColor: "white",
-          width: "100%",
-          position: "sticky",
-          top: isSmall ? 50 : 60,
-          left: 0,
-          padding: 2,
-          zIndex: 100,
-        }}
-      >
-        {episode.episode}: {episode.name}
-      </Typography>
-      <Typography variant={"body1"} component="p">
+      <StickyHeader title={`${episode.episode}: ${episode.name}`} />
+      <Typography variant={"h6"} component="p">
         Air Date: {episode.air_date}
       </Typography>
-      <Typography variant={"h6"} component="p">
+      <Typography variant={"h5"} component="p">
         {episode.characters.length} Character(s):
       </Typography>
       <Grid container justifyContent={"center"}>

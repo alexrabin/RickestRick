@@ -146,10 +146,28 @@ const CharacterItem = ({
                   Created:{" "}
                   {format(new Date(characterData.created), "MMMM d, yyyy")}
                 </DialogContentText>
-                <DialogContentText>
-                  Origin: {characterData.origin.name}
-                </DialogContentText>
-                {characterData.location.url.length > 0 && (
+                {characterData.origin.url.length > 0 ? (
+                  <DialogContentText>
+                    Origin:{" "}
+                    <Link
+                      style={{ color: "#0099FA" }}
+                      href={
+                        "/location/" +
+                        characterData.origin.url
+                          .replace("https://rickandmortyapi.com/api/", "")
+                          .split("/")[1]
+                      }
+                      onClick={handleClose}
+                    >
+                      {characterData.origin.name}
+                    </Link>
+                  </DialogContentText>
+                ) : (
+                  <DialogContentText>
+                    Origin: {characterData.origin.name}
+                  </DialogContentText>
+                )}
+                {characterData.location.url.length > 0 ? (
                   <DialogContentText>
                     Last Location:{" "}
                     <Link
@@ -164,6 +182,10 @@ const CharacterItem = ({
                     >
                       {characterData.location.name}
                     </Link>
+                  </DialogContentText>
+                ) : (
+                  <DialogContentText>
+                    Last Location: {characterData.location.name}
                   </DialogContentText>
                 )}
                 <DialogContentText>Episode(s):</DialogContentText>

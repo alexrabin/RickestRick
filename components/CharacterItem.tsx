@@ -18,7 +18,7 @@ import DialogTitleItem from "./DialogTitleItem";
 const CharacterItem = ({
   character,
   url,
-  height = 150,
+  height = 250,
   textVariant = "h5",
 }: {
   character?: Character;
@@ -79,7 +79,7 @@ const CharacterItem = ({
   }
   return (
     <>
-      <Card>
+      <Card sx={{ width: height }}>
         <CardActionArea onClick={handleClickOpen}>
           <CardMedia
             component={"img"}

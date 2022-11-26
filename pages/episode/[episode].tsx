@@ -23,7 +23,7 @@ const EpisodePage = ({
   return (
     <MainLayout documentTitle={episode.episode}>
       <Typography variant={"h5"} component="p" textAlign={"center"}>
-        {episode.name}: {episode.episode}
+        {episode.episode}: {episode.name}
       </Typography>
       <Typography variant={"body1"} component="p">
         Air Date: {episode.air_date}

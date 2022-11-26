@@ -15,10 +15,9 @@ async function fetchWithCache(url: string) {
   if (value) {
     return { data: value };
   } else {
-    const hours = 24;
     const res = await RickMortyAPI.get(url);
     const data = res.data;
-    cacheData.put(url, data, hours * 1000 * 60 * 60);
+    cacheData.put(url, data);
     return { data };
   }
 }

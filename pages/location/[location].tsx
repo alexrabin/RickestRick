@@ -8,7 +8,8 @@ import CharacterItem from "../../components/CharacterItem";
 import MainLayout from "../../components/MainLayout";
 import Location from "../../models/Location";
 import { getAllLocations, getLocation } from "../../services/apiService";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 const LocationPage = ({
   location,
   totalLocations,
@@ -20,9 +21,24 @@ const LocationPage = ({
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     router.push(`/location/${value}`);
   };
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <MainLayout documentTitle={location.name}>
-      <Typography variant={"h5"} component="p" textAlign={"center"}>
+      <Typography
+        variant={"h5"}
+        component="p"
+        textAlign={"center"}
+        sx={{
+          backgroundColor: "white",
+          width: "100%",
+          position: "sticky",
+          top: isSmall ? 50 : 60,
+          left: 0,
+          padding: 2,
+          zIndex: 100,
+        }}
+      >
         Location: {location.name}
       </Typography>
       <Typography variant={"body1"} component="p">
@@ -44,11 +60,13 @@ const LocationPage = ({
         })}
       </Grid>
       <Pagination
+        size={isSmall ? "small" : "large"}
         count={totalLocations}
         shape="rounded"
         page={location.id}
         onChange={handleChange}
         sx={{ marginTop: 5 }}
+        boundaryCount={3}
       />
     </MainLayout>
   );

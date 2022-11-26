@@ -28,7 +28,7 @@ const LocationItem = ({ location }: { location: Location }) => {
       <Card>
         <CardActionArea onClick={handleClickOpen}>
           <CardContent>
-            <Typography variant="h5" component="p">
+            <Typography variant="h5" component="p" textAlign={"center"}>
               {location.name}
             </Typography>
           </CardContent>

@@ -8,7 +8,8 @@ import CharacterItem from "../../components/CharacterItem";
 import MainLayout from "../../components/MainLayout";
 import Episode from "../../models/Episode";
 import { getAllEpisodes, getEpisode } from "../../services/apiService";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 const EpisodePage = ({
   episode,
   totalEpisodes,
@@ -20,9 +21,24 @@ const EpisodePage = ({
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     router.push(`/episode/${value}`);
   };
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <MainLayout documentTitle={episode.episode}>
-      <Typography variant={"h5"} component="p" textAlign={"center"}>
+      <Typography
+        variant={"h5"}
+        component="p"
+        textAlign={"center"}
+        sx={{
+          backgroundColor: "white",
+          width: "100%",
+          position: "sticky",
+          top: isSmall ? 50 : 60,
+          left: 0,
+          padding: 2,
+          zIndex: 100,
+        }}
+      >
         {episode.episode}: {episode.name}
       </Typography>
       <Typography variant={"body1"} component="p">
@@ -41,11 +57,13 @@ const EpisodePage = ({
         })}
       </Grid>
       <Pagination
+        size={isSmall ? "small" : "large"}
         count={totalEpisodes}
         shape="rounded"
         page={episode.id}
         onChange={handleChange}
         sx={{ marginTop: 5 }}
+        boundaryCount={3}
       />
     </MainLayout>
   );

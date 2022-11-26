@@ -29,7 +29,7 @@ const EpisodeItem = ({ episode }: { episode: Episode }) => {
       <Card>
         <CardActionArea onClick={handleClickOpen}>
           <CardContent>
-            <Typography variant="h5" component="p">
+            <Typography variant="h5" component="p" textAlign={"center"}>
               {episode.episode}: {episode.name}
             </Typography>
           </CardContent>

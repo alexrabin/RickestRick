@@ -156,6 +156,7 @@ const CharacterItem = ({
                           .replace("https://rickandmortyapi.com/api/", "")
                           .split("/")[1]
                       }
+                      onClick={handleClose}
                     >
                       {characterData.location.name}
                     </Link>

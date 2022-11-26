@@ -69,14 +69,14 @@ const CharacterItem = ({
   };
   if (!characterData) {
     return (
-      <Card>
+      <Card sx={{ width: height }}>
         <Skeleton
           variant="rectangular"
-          width={210}
-          height={60}
+          width={height}
+          height={height}
           animation="wave"
         />
-        <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+        <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
       </Card>
     );
   }

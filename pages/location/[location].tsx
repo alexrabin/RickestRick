@@ -29,16 +29,16 @@ const LocationPage = ({
         Type: {location.type}
       </Typography>
       <Typography variant={"body1"} component="p">
-        {location.dimension}
+        Dimension: {location.dimension}
       </Typography>
       <Typography variant={"h6"} component="p">
-        Residents ({location.residents.length}):
+        {location.residents.length} Resident(s):
       </Typography>
       <Grid container justifyContent={"center"}>
         {location.residents.map((c, i) => {
           return (
             <Grid item key={i} sx={{ margin: 1 }}>
-              <CharacterItem url={c} textVariant={"body1"} />
+              <CharacterItem url={c} />
             </Grid>
           );
         })}

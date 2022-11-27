@@ -54,7 +54,9 @@ const CharacterItem = ({
         .replace("https://rickandmortyapi.com/api/", "")
         .split("/")[1];
       getCharacter(id).then((value) => {
-        setCharacterData(value);
+        if (value) {
+          setCharacterData(value);
+        }
       });
     }
   }, [character, url]);
@@ -188,7 +190,9 @@ const CharacterItem = ({
                     Last Location: {characterData.location.name}
                   </DialogContentText>
                 )}
-                <DialogContentText>Episode(s):</DialogContentText>
+                <DialogContentText>
+                  {characterData.episode.length} Episode(s):
+                </DialogContentText>
                 <Grid container justifyContent={"center"}>
                   {characterData.episode.map((e, i) => {
                     const episodeNumber = e

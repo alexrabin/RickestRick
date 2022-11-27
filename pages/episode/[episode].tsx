@@ -69,7 +69,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
       props: {
         episode: episodeData,
-        totalEpisodes: allEpisodeData.info.count,
+        totalEpisodes: allEpisodeData?.info.count,
       },
     };
   }

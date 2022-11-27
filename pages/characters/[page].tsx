@@ -52,6 +52,9 @@ export default CharactersPage;
 
 export const getStaticPaths = async () => {
   const characterData = await getAllCharacters();
+  if (!characterData) {
+    throw new Error("Invalid Character Data");
+  }
   const paths = [];
   for (let i = 1; i <= characterData.info.pages; i++) {
     paths.push({ params: { page: `${i}` } });
@@ -68,6 +71,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
     throw Error("No Page Found");
   }
   const characterPageData = await getAllCharacters(parseInt(page));
+  if (!characterPageData) {
+    throw new Error(`Invalid Character Data for page: ${page}`);
+  }
   return {
     props: {
       characters: characterPageData.results,

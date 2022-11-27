@@ -73,7 +73,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
       props: {
         location: locationData,
-        totalLocations: allLocationsData.info.count,
+        totalLocations: allLocationsData?.info.count,
       },
     };
   }

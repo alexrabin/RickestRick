@@ -50,6 +50,9 @@ export default LocationsPage;
 
 export const getStaticPaths = async () => {
   const locationsPageData = await getAllLocations();
+  if (!locationsPageData) {
+    throw new Error("Invalid Locations Data");
+  }
   const paths = [];
   for (let i = 1; i <= locationsPageData.info.pages; i++) {
     paths.push({ params: { page: `${i}` } });
@@ -66,6 +69,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
     throw Error("No Page Found");
   }
   const locationsPageData = await getAllLocations(parseInt(page));
+  if (!locationsPageData) {
+    throw new Error(`Invalid Locations Data for page ${page}`);
+  }
   return {
     props: {
       locations: locationsPageData.results,

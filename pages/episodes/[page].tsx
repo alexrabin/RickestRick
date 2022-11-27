@@ -50,6 +50,9 @@ export default EpisodesPage;
 
 export const getStaticPaths = async () => {
   const episodePageData = await getAllEpisodes();
+  if (!episodePageData) {
+    throw new Error("Invalid Episodes Data");
+  }
   const paths = [];
   for (let i = 1; i <= episodePageData.info.pages; i++) {
     paths.push({ params: { page: `${i}` } });
@@ -66,6 +69,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
     throw Error("No Page Found");
   }
   const episodePageData = await getAllEpisodes(parseInt(page));
+  if (!episodePageData) {
+    throw new Error(`Invalid Episodes Data for page ${page}`);
+  }
   return {
     props: {
       episodes: episodePageData.results,

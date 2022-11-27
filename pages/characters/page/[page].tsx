@@ -1,15 +1,15 @@
 import Grid from "@mui/material/Grid";
 import { GetStaticProps } from "next";
 import React from "react";
-import MainLayout from "../../components/MainLayout";
-import Character from "../../models/Characters";
-import { getAllCharacters } from "../../services/apiService";
-import CharacterItem from "../../components/CharacterItem";
+import MainLayout from "../../../components/MainLayout";
+import Character from "../../../models/Characters";
+import { getAllCharacters } from "../../../services/apiService";
+import CharacterItem from "../../../components/CharacterItem";
 import Pagination from "@mui/material/Pagination";
 import { useRouter } from "next/router";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import StickyHeader from "../../components/StickyHeader";
+import StickyHeader from "../../../components/StickyHeader";
 interface Props {
   characters: Character[];
   page: number;
@@ -19,7 +19,7 @@ interface Props {
 const CharactersPage = ({ characters, page, totalPages }: Props) => {
   const router = useRouter();
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-    router.push(`/characters/${value}`);
+    router.push(`/characters/page/${value}`);
   };
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down("md"));

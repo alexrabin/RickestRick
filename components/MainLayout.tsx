@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import CssBaseline from "@mui/material/CssBaseline";
+import dynamic from "next/dynamic";
 import Head from "next/head";
-import NavigationBar from "./NavigationBar";
-
+const NavigationBar = dynamic(() => import("./NavigationBar"));
 const LayoutContainer = styled.div`
   min-height: 100vh;
   padding: 2rem 1rem;

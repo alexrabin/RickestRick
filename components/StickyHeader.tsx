@@ -30,7 +30,13 @@ const StickyHeader = ({
     >
       {leftActionItem && <Grid item>{leftActionItem}</Grid>}
       <Grid item>
-        <Typography variant={"h4"} component="p" textAlign={"center"}>
+        <Typography
+          component="p"
+          textAlign={"center"}
+          sx={{
+            typography: { xs: "h6", sm: "h5", md: "h4", lg: "h4", xl: "h4" },
+          }}
+        >
           {title}
         </Typography>
       </Grid>

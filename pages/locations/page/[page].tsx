@@ -6,10 +6,10 @@ import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
 import { useRouter } from "next/router";
 import Location from "../../../models/Location";
-import LocationItem from "../../../components/LocationItem";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import StickyHeader from "../../../components/StickyHeader";
+import CardItem from "../../../components/CardItem";
 interface Props {
   locations: Location[];
   page: number;
@@ -27,14 +27,17 @@ const LocationsPage = ({ locations, page, totalPages }: Props) => {
     <MainLayout documentTitle="Episodes">
       <StickyHeader title="Locations" />
       <Grid container justifyContent={"center"}>
-        {locations.map((e, i) => {
+        {locations.map((location, i) => {
           return (
             <Grid
               item
               key={i}
               sx={{ margin: 1, width: isSmall ? "100%" : null }}
             >
-              <LocationItem location={e} />
+              <CardItem
+                title={location.name}
+                href={`/location/${location.id}`}
+              />
             </Grid>
           );
         })}

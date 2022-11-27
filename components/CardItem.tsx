@@ -3,22 +3,30 @@ import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
-import Episode from "../models/Episode";
 import Link from "next/link";
-const EpisodeItem = ({ episode }: { episode: Episode }) => {
+import { SxProps, Theme } from "@mui/material/styles";
+const CardItem = ({
+  href,
+  title,
+  sx,
+}: {
+  href: string;
+  title: string;
+  sx?: SxProps<Theme>;
+}) => {
   return (
-    <Link href={`/episode/${episode.id}`}>
-      <Card>
-        <CardActionArea>
+    <Card sx={sx}>
+      <CardActionArea>
+        <Link href={href}>
           <CardContent>
             <Typography variant="h5" component="p" textAlign={"center"}>
-              {episode.episode}: {episode.name}
+              {title}
             </Typography>
           </CardContent>
-        </CardActionArea>
-      </Card>
-    </Link>
+        </Link>
+      </CardActionArea>
+    </Card>
   );
 };
 
-export default EpisodeItem;
+export default CardItem;

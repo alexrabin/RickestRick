@@ -6,10 +6,10 @@ import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
 import { useRouter } from "next/router";
 import Episode from "../../../models/Episode";
-import EpisodeItem from "../../../components/EpisodeItem";
 import StickyHeader from "../../../components/StickyHeader";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import CardItem from "../../../components/CardItem";
 interface Props {
   episodes: Episode[];
   page: number;
@@ -34,7 +34,10 @@ const EpisodesPage = ({ episodes, page, totalPages }: Props) => {
               key={i}
               sx={{ margin: 1, width: isSmall ? "100%" : null }}
             >
-              <EpisodeItem episode={e} />
+              <CardItem
+                title={`${e.episode}: ${e.name}`}
+                href={`/episode/${e.id}`}
+              />
             </Grid>
           );
         })}

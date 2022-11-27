@@ -5,7 +5,7 @@ import NavigationBar from "./NavigationBar";
 
 const LayoutContainer = styled.div`
   min-height: 100vh;
-  padding: 4rem 1rem;
+  padding: 2rem 1rem;
   flex: 1;
   display: flex;
   flex-direction: column;

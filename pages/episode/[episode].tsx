@@ -12,6 +12,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import StickyHeader from "../../components/StickyHeader";
 import Character from "../../models/Characters";
+import ArrowBackIos from "@mui/icons-material/ArrowBackIos";
+import Button from "@mui/material/Button";
 const EpisodePage = ({
   episode,
   characters,
@@ -29,7 +31,14 @@ const EpisodePage = ({
   const isSmall = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <MainLayout documentTitle={episode.episode}>
-      <StickyHeader title={`${episode.episode}: ${episode.name}`} />
+      <StickyHeader
+        title={`${episode.episode}: ${episode.name}`}
+        leftActionItem={
+          <Button onClick={() => router.push("/episodes")}>
+            <ArrowBackIos /> Episodes
+          </Button>
+        }
+      />
       <Typography variant={"h6"} component="p">
         Air Date: {episode.air_date}
       </Typography>
@@ -79,7 +88,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if (!episodeData) {
       return {
         redirect: {
-          destination: "/episodes/1",
+          destination: "/episodes/page/1",
           permanent: false,
         },
       };
@@ -95,7 +104,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
   return {
     redirect: {
-      destination: "/episodes/1",
+      destination: "/episodes/page/1",
       permanent: false,
     },
   };

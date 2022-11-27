@@ -12,6 +12,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import StickyHeader from "../../components/StickyHeader";
 import Character from "../../models/Characters";
+import ArrowBackIos from "@mui/icons-material/ArrowBackIos";
+import Button from "@mui/material/Button";
 const LocationPage = ({
   location,
   characters,
@@ -29,7 +31,14 @@ const LocationPage = ({
   const isSmall = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <MainLayout documentTitle={location.name}>
-      <StickyHeader title={`Location: ${location.name}`} />
+      <StickyHeader
+        title={`${location.name}`}
+        leftActionItem={
+          <Button onClick={() => router.push("/locations")}>
+            <ArrowBackIos /> Locations
+          </Button>
+        }
+      />
       <Typography variant={"h6"} component="p">
         Type: {location.type}
       </Typography>
@@ -82,7 +91,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if (!locationData) {
       return {
         redirect: {
-          destination: "/locations/1",
+          destination: "/locations/page/1",
           permanent: false,
         },
       };
@@ -98,7 +107,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
   return {
     redirect: {
-      destination: "/locations/1",
+      destination: "/locations/page/1",
       permanent: false,
     },
   };

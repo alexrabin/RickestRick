@@ -1,13 +1,13 @@
 import { GetStaticProps } from "next";
 import React from "react";
-import MainLayout from "../../components/MainLayout";
-import { getAllEpisodes } from "../../services/apiService";
+import MainLayout from "../../../components/MainLayout";
+import { getAllEpisodes } from "../../../services/apiService";
 import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
 import { useRouter } from "next/router";
-import Episode from "../../models/Episode";
-import EpisodeItem from "../../components/EpisodeItem";
-import StickyHeader from "../../components/StickyHeader";
+import Episode from "../../../models/Episode";
+import EpisodeItem from "../../../components/EpisodeItem";
+import StickyHeader from "../../../components/StickyHeader";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 const EpisodesPage = ({ episodes, page, totalPages }: Props) => {
   const router = useRouter();
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-    router.push(`/episodes/${value}`);
+    router.push(`/episodes/page/${value}`);
   };
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));

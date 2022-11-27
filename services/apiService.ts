@@ -82,7 +82,7 @@ export const getAllLocations = async (
 export const getLocation = async (
   id: string,
   includeCharacters: boolean,
-): Promise<[Location | null, Character | Character[] | null]> => {
+): Promise<[Location | null, Character[] | null]> => {
   try {
     const res = await fetchWithCache(`location/${id}`) as Location;
     return [
@@ -110,7 +110,7 @@ export const getAllEpisodes = async (
 export const getEpisode = async (
   id: string,
   includeCharacters: boolean,
-): Promise<[Episode | null, Character | Character[] | null]> => {
+): Promise<[Episode | null, Character[] | null]> => {
   try {
     const res = await fetchWithCache(`episode/${id}`) as Episode;
 

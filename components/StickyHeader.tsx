@@ -2,26 +2,39 @@ import React from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-const StickyHeader = ({ title }: { title: string }) => {
+import Grid from "@mui/material/Grid";
+const StickyHeader = ({
+  title,
+  leftActionItem,
+}: {
+  title: string;
+  leftActionItem?: JSX.Element | JSX.Element[];
+}) => {
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down("md"));
   return (
-    <Typography
-      variant={"h4"}
-      component="p"
-      textAlign={"center"}
+    <Grid
+      container
+      justifyContent={leftActionItem ? "space-between" : "center"}
+      alignItems="center"
       sx={{
-        backgroundColor: "white",
-        width: "100%",
         position: "sticky",
         top: isSmall ? 50 : 60,
         left: 0,
-        padding: 2,
+        padding: 3,
+        paddingBottom: 1,
         zIndex: 100,
+        backgroundColor: "white",
+        width: "100%",
       }}
     >
-      {title}
-    </Typography>
+      {leftActionItem && <Grid item>{leftActionItem}</Grid>}
+      <Grid item>
+        <Typography variant={"h4"} component="p" textAlign={"center"}>
+          {title}
+        </Typography>
+      </Grid>
+    </Grid>
   );
 };
 

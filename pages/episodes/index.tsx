@@ -7,7 +7,7 @@ export default EmptyPage;
 export const getServerSideProps = () => {
   return {
     redirect: {
-      destination: "/episodes/1",
+      destination: "/episodes/page/1",
       permanent: true,
     },
   };

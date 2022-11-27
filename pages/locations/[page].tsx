@@ -2,13 +2,14 @@ import { GetStaticProps } from "next";
 import React from "react";
 import MainLayout from "../../components/MainLayout";
 import { getAllLocations } from "../../services/apiService";
-import Typography from "@mui/material/Typography";
 import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
 import { useRouter } from "next/router";
 import Location from "../../models/Location";
 import LocationItem from "../../components/LocationItem";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import StickyHeader from "../../components/StickyHeader";
 interface Props {
   locations: Location[];
   page: number;
@@ -20,16 +21,19 @@ const LocationsPage = ({ locations, page, totalPages }: Props) => {
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     router.push(`/locations/${value}`);
   };
-
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <MainLayout documentTitle="Episodes">
-      <Typography variant="h4" component="div">
-        Locations
-      </Typography>
+      <StickyHeader title="Locations" />
       <Grid container justifyContent={"center"}>
         {locations.map((e, i) => {
           return (
-            <Grid item key={i} sx={{ margin: 1 }}>
+            <Grid
+              item
+              key={i}
+              sx={{ margin: 1, width: isSmall ? "100%" : null }}
+            >
               <LocationItem location={e} />
             </Grid>
           );

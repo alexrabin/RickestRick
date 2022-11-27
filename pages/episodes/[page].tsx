@@ -2,13 +2,14 @@ import { GetStaticProps } from "next";
 import React from "react";
 import MainLayout from "../../components/MainLayout";
 import { getAllEpisodes } from "../../services/apiService";
-import Typography from "@mui/material/Typography";
 import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
 import { useRouter } from "next/router";
 import Episode from "../../models/Episode";
 import EpisodeItem from "../../components/EpisodeItem";
-
+import StickyHeader from "../../components/StickyHeader";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 interface Props {
   episodes: Episode[];
   page: number;
@@ -20,16 +21,19 @@ const EpisodesPage = ({ episodes, page, totalPages }: Props) => {
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     router.push(`/episodes/${value}`);
   };
-
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <MainLayout documentTitle="Episodes">
-      <Typography variant="h4" component="div">
-        Episodes
-      </Typography>
+      <StickyHeader title="Episodes" />
       <Grid container justifyContent={"center"}>
         {episodes.map((e, i) => {
           return (
-            <Grid item key={i} sx={{ margin: 1 }}>
+            <Grid
+              item
+              key={i}
+              sx={{ margin: 1, width: isSmall ? "100%" : null }}
+            >
               <EpisodeItem episode={e} />
             </Grid>
           );

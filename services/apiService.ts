@@ -56,6 +56,18 @@ export const getCharacter = async (id: string): Promise<Character | null> => {
   }
 };
 
+export const getCharacters = async (
+  ids: string,
+): Promise<Character | Character[] | null> => {
+  try {
+    const res = await fetchWithCache(`character/${ids}`);
+    return res;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+};
+
 export const getAllLocations = async (
   page = 1,
 ): Promise<LocationResponse | null> => {
@@ -67,13 +79,19 @@ export const getAllLocations = async (
   }
 };
 
-export const getLocation = async (id: string): Promise<Location | null> => {
+export const getLocation = async (
+  id: string,
+  includeCharacters: boolean,
+): Promise<[Location | null, Character | Character[] | null]> => {
   try {
-    const res = await fetchWithCache(`location/${id}`);
-    return res;
+    const res = await fetchWithCache(`location/${id}`) as Location;
+    return [
+      res,
+      includeCharacters ? await getAssociatedCharacters(res.residents) : null,
+    ];
   } catch (e) {
     console.log(e);
-    return null;
+    return [null, null];
   }
 };
 
@@ -89,13 +107,37 @@ export const getAllEpisodes = async (
   }
 };
 
-export const getEpisode = async (id: string): Promise<Episode | null> => {
+export const getEpisode = async (
+  id: string,
+  includeCharacters: boolean,
+): Promise<[Episode | null, Character | Character[] | null]> => {
   try {
-    const res = await fetchWithCache(`episode/${id}`);
+    const res = await fetchWithCache(`episode/${id}`) as Episode;
 
-    return res;
+    return [
+      res,
+      includeCharacters ? await getAssociatedCharacters(res.characters) : null,
+    ];
   } catch (e) {
     console.log(e);
-    return null;
+    return [null, null];
   }
+};
+
+export const getAssociatedCharacters = async (
+  urls: string[],
+): Promise<Character[] | null> => {
+  const characterIds = urls.map(
+    (url) => url.replace("https://rickandmortyapi.com/api/", "").split("/")[1],
+  );
+  let characters: Character[] | null = [];
+  if (characterIds.length > 0) {
+    const c = await getCharacters(characterIds?.join(","));
+    if (c && "id" in c) {
+      characters = [c];
+    } else {
+      characters = c;
+    }
+  }
+  return characters;
 };

@@ -11,11 +11,14 @@ import { getAllLocations, getLocation } from "../../services/apiService";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import StickyHeader from "../../components/StickyHeader";
+import Character from "../../models/Characters";
 const LocationPage = ({
   location,
+  characters,
   totalLocations,
 }: {
   location: Location;
+  characters: Character[] | null;
   totalLocations: number;
 }) => {
   const router = useRouter();
@@ -37,13 +40,21 @@ const LocationPage = ({
         {location.residents.length} Resident(s):
       </Typography>
       <Grid container justifyContent={"center"}>
-        {location.residents.map((c, i) => {
-          return (
-            <Grid item key={i} sx={{ margin: 1 }}>
-              <CharacterItem url={c} />
-            </Grid>
-          );
-        })}
+        {characters && characters.length > 0
+          ? characters.map((c, i) => {
+              return (
+                <Grid item key={i} sx={{ margin: 1 }}>
+                  <CharacterItem character={c} />
+                </Grid>
+              );
+            })
+          : location.residents.map((c, i) => {
+              return (
+                <Grid item key={i} sx={{ margin: 1 }}>
+                  <CharacterItem url={c} />
+                </Grid>
+              );
+            })}
       </Grid>
       <Pagination
         size={isSmall ? "small" : "large"}
@@ -65,14 +76,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (location && typeof location === "string") {
     context.res.setHeader(
       "Cache-Control",
-      "public, s-maxage=30, stale-while-revalidate=59"
+      "public, s-maxage=60, stale-while-revalidate=59"
     );
-    const locationData = await getLocation(location);
+    const [locationData, characters] = await getLocation(location, true);
+    if (!locationData) {
+      return {
+        redirect: {
+          destination: "/locations/1",
+          permanent: false,
+        },
+      };
+    }
     const allLocationsData = await getAllLocations();
-
     return {
       props: {
         location: locationData,
+        characters,
         totalLocations: allLocationsData?.info.count,
       },
     };

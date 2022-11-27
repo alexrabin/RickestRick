@@ -11,11 +11,14 @@ import { getAllEpisodes, getEpisode } from "../../services/apiService";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import StickyHeader from "../../components/StickyHeader";
+import Character from "../../models/Characters";
 const EpisodePage = ({
   episode,
+  characters,
   totalEpisodes,
 }: {
   episode: Episode;
+  characters: Character[] | null;
   totalEpisodes: number;
 }) => {
   const router = useRouter();
@@ -34,13 +37,21 @@ const EpisodePage = ({
         {episode.characters.length} Character(s):
       </Typography>
       <Grid container justifyContent={"center"}>
-        {episode.characters.map((c, i) => {
-          return (
-            <Grid item key={i} sx={{ margin: 1 }}>
-              <CharacterItem url={c} />
-            </Grid>
-          );
-        })}
+        {characters && characters.length > 0
+          ? characters.map((c, i) => {
+              return (
+                <Grid item key={i} sx={{ margin: 1 }}>
+                  <CharacterItem character={c} />
+                </Grid>
+              );
+            })
+          : episode.characters.map((c, i) => {
+              return (
+                <Grid item key={i} sx={{ margin: 1 }}>
+                  <CharacterItem url={c} />
+                </Grid>
+              );
+            })}
       </Grid>
       <Pagination
         size={isSmall ? "small" : "large"}
@@ -62,13 +73,22 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (episode && typeof episode === "string") {
     context.res.setHeader(
       "Cache-Control",
-      "public, s-maxage=30, stale-while-revalidate=59"
+      "public, s-maxage=60, stale-while-revalidate=59"
     );
-    const episodeData = await getEpisode(episode);
+    const [episodeData, characters] = await getEpisode(episode, true);
+    if (!episodeData) {
+      return {
+        redirect: {
+          destination: "/episodes/1",
+          permanent: false,
+        },
+      };
+    }
     const allEpisodeData = await getAllEpisodes();
     return {
       props: {
         episode: episodeData,
+        characters,
         totalEpisodes: allEpisodeData?.info.count,
       },
     };

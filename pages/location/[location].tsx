@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Pagination from "@mui/material/Pagination";
 import Typography from "@mui/material/Typography";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import React from "react";
 import CharacterItem from "../../components/CharacterItem";
@@ -80,13 +80,24 @@ const LocationPage = ({
 
 export default LocationPage;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticPaths = async () => {
+  const allLocationsData = await getAllLocations();
+  if (!allLocationsData) {
+    return [];
+  }
+  const paths = [];
+  for (let i = 1; i <= allLocationsData?.info.count; i++) {
+    paths.push({ params: { location: `${i}` } });
+  }
+  return {
+    paths: paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
   const { location } = context.params ?? {};
   if (location && typeof location === "string") {
-    context.res.setHeader(
-      "Cache-Control",
-      "public, s-maxage=60, stale-while-revalidate=59"
-    );
     const [locationData, characters] = await getLocation(location, true);
     if (!locationData) {
       return {

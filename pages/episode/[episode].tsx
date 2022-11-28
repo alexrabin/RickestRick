@@ -1,7 +1,7 @@
 import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { GetServerSideProps } from "next";
+import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
 import React from "react";
 import CharacterItem from "../../components/CharacterItem";
@@ -77,13 +77,24 @@ const EpisodePage = ({
 
 export default EpisodePage;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticPaths = async () => {
+  const episodePageData = await getAllEpisodes();
+  if (!episodePageData) {
+    return [];
+  }
+  const paths = [];
+  for (let i = 1; i <= episodePageData?.info.count; i++) {
+    paths.push({ params: { episode: `${i}` } });
+  }
+  return {
+    paths: paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
   const { episode } = context.params ?? {};
   if (episode && typeof episode === "string") {
-    context.res.setHeader(
-      "Cache-Control",
-      "public, s-maxage=60, stale-while-revalidate=59"
-    );
     const [episodeData, characters] = await getEpisode(episode, true);
     if (!episodeData) {
       return {

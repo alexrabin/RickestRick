@@ -3,7 +3,6 @@ import Character from "../models/Characters";
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import CardMedia from "@mui/material/CardMedia";
 import CardActionArea from "@mui/material/CardActionArea";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -16,6 +15,7 @@ import { getCharacter } from "../services/apiService";
 import DialogTitleItem from "./DialogTitleItem";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import Image from "next/image";
 
 const CharacterItem = ({
   character,
@@ -86,11 +86,11 @@ const CharacterItem = ({
     <>
       <Card sx={{ width: height }}>
         <CardActionArea onClick={handleClickOpen}>
-          <CardMedia
-            component={"img"}
+          <Image
             alt={characterData.name}
             src={characterData.image}
             height={height}
+            width={height}
           />
           <CardContent>
             <Typography

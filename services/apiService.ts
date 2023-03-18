@@ -12,7 +12,8 @@ const RickMortyAPI = axios.create({
   baseURL: baseUrl,
   responseType: "json",
   headers: {
-    "accept-encoding": "*",
+    "Content-Type": "application/json",
+    "Accept-Encoding": "application/json",
   },
 });
 
@@ -36,7 +37,7 @@ async function fetchWithCache(url: string) {
 }
 
 export const getAllCharacters = async (
-  page = 1,
+  page = 1
 ): Promise<CharacterResponse | null> => {
   try {
     const res = await fetchWithCache(`character/?page=${page}`);
@@ -57,7 +58,7 @@ export const getCharacter = async (id: string): Promise<Character | null> => {
 };
 
 export const getCharacters = async (
-  ids: string,
+  ids: string
 ): Promise<Character | Character[] | null> => {
   try {
     const res = await fetchWithCache(`character/${ids}`);
@@ -69,7 +70,7 @@ export const getCharacters = async (
 };
 
 export const getAllLocations = async (
-  page = 1,
+  page = 1
 ): Promise<LocationResponse | null> => {
   try {
     const res = await fetchWithCache(`location/?page=${page}`);
@@ -81,10 +82,10 @@ export const getAllLocations = async (
 
 export const getLocation = async (
   id: string,
-  includeCharacters: boolean,
+  includeCharacters: boolean
 ): Promise<[Location | null, Character[] | null]> => {
   try {
-    const res = await fetchWithCache(`location/${id}`) as Location;
+    const res = (await fetchWithCache(`location/${id}`)) as Location;
     return [
       res,
       includeCharacters ? await getAssociatedCharacters(res.residents) : null,
@@ -96,7 +97,7 @@ export const getLocation = async (
 };
 
 export const getAllEpisodes = async (
-  page = 1,
+  page = 1
 ): Promise<EpisodeResponse | null> => {
   try {
     const res = await fetchWithCache(`episode/?page=${page}`);
@@ -109,10 +110,10 @@ export const getAllEpisodes = async (
 
 export const getEpisode = async (
   id: string,
-  includeCharacters: boolean,
+  includeCharacters: boolean
 ): Promise<[Episode | null, Character[] | null]> => {
   try {
-    const res = await fetchWithCache(`episode/${id}`) as Episode;
+    const res = (await fetchWithCache(`episode/${id}`)) as Episode;
 
     return [
       res,
@@ -125,10 +126,10 @@ export const getEpisode = async (
 };
 
 export const getAssociatedCharacters = async (
-  urls: string[],
+  urls: string[]
 ): Promise<Character[] | null> => {
   const characterIds = urls.map(
-    (url) => url.replace("https://rickandmortyapi.com/api/", "").split("/")[1],
+    (url) => url.replace("https://rickandmortyapi.com/api/", "").split("/")[1]
   );
   let characters: Character[] | null = [];
   if (characterIds.length > 0) {

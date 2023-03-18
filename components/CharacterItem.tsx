@@ -61,6 +61,7 @@ const CharacterItem = ({
     }
   }, [character, url]);
   const [open, setOpen] = React.useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -91,7 +92,17 @@ const CharacterItem = ({
             src={characterData.image}
             height={height}
             width={height}
+            onLoad={() => setIsLoaded(true)}
           />
+          {!isLoaded && (
+            <Skeleton
+              variant="rectangular"
+              width={height}
+              height={height}
+              animation="wave"
+              style={{ position: "absolute", top: 0, left: 0 }}
+            />
+          )}
           <CardContent>
             <Typography
               variant={textVariant}

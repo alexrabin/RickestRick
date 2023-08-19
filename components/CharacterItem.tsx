@@ -61,7 +61,8 @@ const CharacterItem = ({
     }
   }, [character, url]);
   const [open, setOpen] = React.useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isMainImageLoaded, setIsMainImageLoaded] = useState(false);
+  const [isDialogImageLoaded, setIsDialogImageLoaded] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -92,9 +93,9 @@ const CharacterItem = ({
             src={characterData.image}
             height={height}
             width={height}
-            onLoad={() => setIsLoaded(true)}
+            onLoad={() => setIsMainImageLoaded(true)}
           />
-          {!isLoaded && (
+          {!isMainImageLoaded && (
             <Skeleton
               variant="rectangular"
               width={height}
@@ -138,13 +139,13 @@ const CharacterItem = ({
                   src={characterData.image}
                   height={200}
                   width={200}
-                  onLoad={() => setIsLoaded(true)}
+                  onLoad={() => setIsDialogImageLoaded(true)}
                 />
-                {!isLoaded && (
+                {!isDialogImageLoaded && (
                   <Skeleton
                     variant="rectangular"
-                    width={height}
-                    height={height}
+                    width={200}
+                    height={200}
                     animation="wave"
                     style={{ position: "absolute", top: 0, left: 0 }}
                   />

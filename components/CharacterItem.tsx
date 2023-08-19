@@ -147,7 +147,6 @@ const CharacterItem = ({
                     width={200}
                     height={200}
                     animation="wave"
-                    style={{ position: "absolute", top: 0, left: 0 }}
                   />
                 )}
               </Grid>

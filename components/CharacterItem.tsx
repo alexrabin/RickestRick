@@ -133,12 +133,22 @@ const CharacterItem = ({
               alignItems={"center"}
             >
               <Grid item xs="auto">
-                <img
-                  src={characterData.image}
+                <Image
                   alt={characterData.name}
+                  src={characterData.image}
                   height={200}
                   width={200}
+                  onLoad={() => setIsLoaded(true)}
                 />
+                {!isLoaded && (
+                  <Skeleton
+                    variant="rectangular"
+                    width={height}
+                    height={height}
+                    animation="wave"
+                    style={{ position: "absolute", top: 0, left: 0 }}
+                  />
+                )}
               </Grid>
               <Grid item>
                 <DialogContentText>

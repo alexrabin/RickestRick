@@ -61,7 +61,7 @@ export const getStaticPaths = async () => {
     throw new Error("Invalid Locations Data");
   }
   const paths = [];
-  for (let i = 1; i <= locationsPageData.info.pages; i++) {
+  for (let i = 1; i <= Math.floor(locationsPageData.info.pages / 2); i++) {
     paths.push({ params: { page: `${i}` } });
   }
   return {
@@ -75,15 +75,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!page || typeof page !== "string") {
     throw Error("No Page Found");
   }
-  const locationsPageData = await getAllLocations(parseInt(page));
+  const pageNum = parseInt(page) * 2;
+  const locationsPageData = await getAllLocations(pageNum);
+  const secondLocation = await getAllLocations(pageNum + 1);
+
   if (!locationsPageData) {
     throw new Error(`Invalid Locations Data for page ${page}`);
   }
   return {
     props: {
-      locations: locationsPageData.results,
+      locations: [
+        ...locationsPageData.results,
+        ...(secondLocation?.results ?? []),
+      ],
       page: parseInt(page),
-      totalPages: locationsPageData.info.pages,
+      totalPages: Math.floor(locationsPageData.info.pages / 2),
     },
   };
 };

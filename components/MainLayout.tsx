@@ -4,13 +4,14 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 const NavigationBar = dynamic(() => import("./NavigationBar"));
 const LayoutContainer = styled.div`
-  min-height: 100vh;
+  min-height: 93vh;
   padding: 2rem 1rem;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  max-width: 100%;
 `;
 type Props = {
   documentTitle?: string;
